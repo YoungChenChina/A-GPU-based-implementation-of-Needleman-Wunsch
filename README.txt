@@ -1,7 +1,11 @@
-运行之前需要更改代码中读取文件和输出文件的路径
+This is a GPU based implementation of Needleman-Wunsch algrithm for global sequence alignment.
 
-需要设置处理的任务条数，最好为 NUM_STREAM*NUM_BLOCK 的倍数， 若不满足，则余数部分数据不会被处理，需要再次更改参数对余数进行处理，可以通过设置SKIPS的值来跳过已经处理的任务
+Before running demo, you need to change the imput data path in the code.
 
-需要设置处理任务中序列的最大长度 SEQ_MAX_LEN（不小于最长序列即可），用来初始化时申请分配GPU内存空间
+When setting the number of sequences for alignment, it is better to fit the times of NUM_STREAM*NUM_BLOCK, if not, the rest sequences will be ignored and need to be comput after that, which can be achieved without changing the data set using SKPIS to skip the sequences already done.
 
-可设置单次运行占用的流的数量 NUM_STREAM ; 一条流中的block数量 NUM_BLOCK ; 跳过的任务数量 SKIPS
+When initializing, SEQ_MAX_LEN need to be set to initialize the ram in GPU, which should be larger than the minimum length of sequences for alignment.
+
+Number of stream used in CUDA can be set by seting NUM_STREAM.
+Number of blocks per stream can also be set by NUM_BLOCK.
+Number of sequences skiped by required can be set by SKIPS.
